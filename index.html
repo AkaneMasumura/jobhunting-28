@@ -212,7 +212,23 @@
             box-sizing: border-box; font-size: 0.8rem; color: var(--text-dark); background-color: #fffafb; transition: all 0.2s; text-align: left;
         }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-pink); background-color: #fff; }
-        
+
+@media screen and (max-width: 768px) {
+    /* スマホのときは横幅1.4倍のルールを解除して、横幅いっぱいに収める */
+    .form-row-single > .flex-wide,
+    .form-row-single > .flex-narrow {
+        flex: none !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* 日付の箱自体も絶対に画面からはみ出させない */
+    .date-time-card-box {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+} 
         /* 通常時は色をつけず白背景に統一 */
         .status-row-white { background-color: #ffffff; }
         
