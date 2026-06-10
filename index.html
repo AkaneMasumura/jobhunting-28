@@ -378,12 +378,17 @@
                         <div><label>マイページID</label><input type="text" id="mypageId"></div>
                         
                         <!-- ES締切日 -->
-                        <div class="date-time-card-box flex-wide">
+                        <div class="date-time-card-box flex-wide" style="display: flex; flex-direction: column; width: 100%; box-sizing: border-box;">
                             <label style="color:#ff6b8b;">ES締切日</label>
-                            <input type="date" id="esDeadlineDate">
-                            <label style="font-size:0.7rem; margin-top:2px; font-weight:normal; text-align: left;"><input type="checkbox" id="esHasTime" onchange="document.getElementById('esTimeContainer').style.display=this.checked?'flex':'none'"> 時間</label>
-                            <div id="esTimeContainer" class="time-box-flex" style="display:none;">
-                                <select id="esHour"></select>:<select id="esMin"></select>
+                            <input type="date" id="esDeadlineDate" style="width: 100% !important; box-sizing: border-box !important; max-width: 100%;">
+                            <label style="font-size:0.7rem; margin-top:4px; font-weight:normal; text-align: left; display: flex; align-items: center;">
+                                <input type="checkbox" id="esHasTime" onchange="document.getElementById('esTimeContainer').style.display=this.checked?'flex':'none'" style="margin-right: 4px; width: auto !important;"> 時間
+                            </label>
+    
+                            <div id="esTimeContainer" class="time-box-flex" style="display:none; align-items: center; gap: 4px; width: 100%; box-sizing: border-box;">
+                                <select id="esHour" style="flex: 1; min-width: 0; box-sizing: border-box;"></select>
+                                <span>:</span>
+                                <select id="esMin" style="flex: 1; min-width: 0; box-sizing: border-box;"></select>
                             </div>
                         </div>
                         
