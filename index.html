@@ -212,23 +212,7 @@
             box-sizing: border-box; font-size: 0.8rem; color: var(--text-dark); background-color: #fffafb; transition: all 0.2s; text-align: left;
         }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary-pink); background-color: #fff; }
-
-@media screen and (max-width: 768px) {
-    /* スマホのときは横幅1.4倍のルールを解除して、横幅いっぱいに収める */
-    .form-row-single > .flex-wide,
-    .form-row-single > .flex-narrow {
-        flex: none !important;
-        width: 100% !important;
-        box-sizing: border-box !important;
-    }
-    
-    /* 日付の箱自体も絶対に画面からはみ出させない */
-    .date-time-card-box {
-        width: 100% !important;
-        max-width: 100% !important;
-        box-sizing: border-box !important;
-    }
-} 
+        
         /* 通常時は色をつけず白背景に統一 */
         .status-row-white { background-color: #ffffff; }
         
@@ -302,46 +286,39 @@
             .m-detail-value { font-size: 0.85rem; color: #000; }
             .m-detail-value a { color: #000; text-decoration: underline; font-weight: bold; }
 
-            /* スマホフォーム崩れ防止：縦並びに直す */
-            .form-row-single { flex-direction: column; align-items: stretch; gap: 10px; }
+            /* ✨スマホフォーム崩れ防止：横並びの力を完全にリセットして縦に並べる */
+            .form-row-single { 
+                display: flex !important;
+                flex-direction: column !important; 
+                align-items: stretch !important; 
+                gap: 10px; 
+                width: 100% !important;
+            }
+            
+            /* ✨PC版の横幅1.4倍・0.8倍の固定ルールをスマホでは完全に無効化する */
+            .form-row-single > .flex-wide,
+            .form-row-single > .flex-narrow,
+            .form-row-single > div {
+                flex: none !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                box-sizing: border-box !important;
+            }
+
             label { font-size: 0.75rem; margin-bottom: 2px; }
             
             .date-time-card-box {
                 padding: 10px; border-radius: 12px; border: 2px solid var(--border-soft);
-                background-color: #fffafb; width: 100% !important; box-sizing: border-box;
+                background-color: #fffafb; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important;
             }
             input[type="text"], input[type="date"], input[type="url"], select, textarea {
-                padding: 8px 10px; font-size: 0.85rem; border-radius: 12px; width: 100% !important; box-sizing: border-box;
+                padding: 8px 10px; font-size: 0.85rem; border-radius: 12px; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important;
             }
             textarea { height: 38px; }
             #companyForm button[type="submit"] { width: 100%; padding: 10px; font-size: 0.85rem; margin-top: 4px; }
             
             .history-list-popup { right: 8px; left: 8px; width: auto; top: 55px; }
         }
-        /* 画面幅からはみ出るバグを根こそぎ強制リセットする魔法のコード */
-html, body {
-    max-width: 100% !important;
-    overflow-x: hidden !important; /* 横方向のはみ出しを強制的に非表示にする */
-}
-
-#companyForm, .card, .section-add-company {
-    max-width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-.date-time-card-box {
-    max-width: 100% !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-/* 日付入力欄そのものの幅を強制固定 */
-.date-time-card-box input[type="date"],
-.date-time-card-box select {
-    max-width: 100% !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
     </style>
 </head>
 <body>
@@ -418,41 +395,29 @@ html, body {
                         <div><label>マイページID</label><input type="text" id="mypageId"></div>
                         
                         <!-- ES締切日 -->
-                        <div class="date-time-card-box flex-wide" style="display: flex; flex-direction: column; width: 100%; box-sizing: border-box;">
-    <label style="color:#ff6b8b;">ES締切日</label>
-    <input type="date" id="esDeadlineDate" style="width: 100% !important; box-sizing: border-box !important; max-width: 100%;">
-    <label style="font-size:0.7rem; margin-top:4px; font-weight:normal; text-align: left; display: flex; align-items: center;">
-        <input type="checkbox" id="esHasTime" onchange="document.getElementById('esTimeContainer').style.display=this.checked?'flex':'none'" style="margin-right: 4px; width: auto !important;"> 時間
-    </label>
-
-    <div id="esTimeContainer" class="time-box-flex" style="display:none; align-items: center; gap: 4px; width: 100%; box-sizing: border-box;">
-        <select id="esHour" style="flex: 1; min-width: 0; box-sizing: border-box;"></select>
-        <span>:</span>
-        <select id="esMin" style="flex: 1; min-width: 0; box-sizing: border-box;"></select>
-    </div>
-</div>
-
+                        <div class="date-time-card-box flex-wide">
+                            <label style="color:#ff6b8b;">ES締切日</label>
+                            <input type="date" id="esDeadlineDate">
+                            <label style="font-size:0.7rem; margin-top:2px; font-weight:normal; text-align: left;"><input type="checkbox" id="esHasTime" onchange="document.getElementById('esTimeContainer').style.display=this.checked?'flex':'none'"> 時間</label>
+                            <div id="esTimeContainer" class="time-box-flex" style="display:none;">
+                                <select id="esHour"></select>:<select id="esMin"></select>
+                            </div>
+                        </div>
+                        
                         <!-- 次回の予定日時 -->
-                        <div class="date-time-card-box flex-wide" style="display: flex; flex-direction: column; width: 100%; box-sizing: border-box; margin-top: 10px;">
-    <label style="color:#ff6b8b;">次回予定/日時</label>
-    
-    <select id="nextDateType" style="margin-bottom:4px; padding: 8px 10px; width: 100% !important; box-sizing: border-box !important; border-radius: 12px;">
-        <option value="">(なし)</option><option value="説明会">説明会</option><option value="GD">GD</option>
-        <option value="テスト">テスト</option><option value="一次面接">一次面接</option><option value="二次面接">二次面接</option>
-        <option value="最終面接">最終面接</option><option value="インターン">インターン</option><option value="その他">その他</option>
-    </select>
-    <input type="date" id="interviewDateDate" style="width: 100% !important; box-sizing: border-box !important; max-width: 100%;">
-    
-    <label style="font-size:0.7rem; margin-top:4px; font-weight:normal; text-align: left; display: flex; align-items: center;">
-        <input type="checkbox" id="interviewHasTime" onchange="document.getElementById('interviewTimeContainer').style.display=this.checked?'flex':'none'" style="margin-right: 4px; width: auto !important;"> 時間
-    </label>
-    
-    <div id="interviewTimeContainer" class="time-box-flex" style="display:none; align-items: center; gap: 4px; width: 100%; box-sizing: border-box;">
-        <select id="interviewHour" style="flex: 1; min-width: 0; box-sizing: border-box;"></select>
-        <span>:</span>
-        <select id="interviewMin" style="flex: 1; min-width: 0; box-sizing: border-box;"></select>
-    </div>
-</div>
+                        <div class="date-time-card-box flex-wide">
+                            <label style="color:#ff6b8b;">次回予定/日時</label>
+                            <select id="nextDateType" style="margin-bottom:2px; padding: 2px 4px;">
+                                <option value="">(なし)</option><option value="説明会">説明会</option><option value="GD">GD</option>
+                                <option value="テスト">テスト</option><option value="一次面接">一次面接</option><option value="二次面接">二次面接</option>
+                                <option value="最終面接">最終面接</option><option value="インターン">インターン</option><option value="その他">その他</option>
+                            </select>
+                            <input type="date" id="interviewDateDate">
+                            <label style="font-size:0.7rem; margin-top:2px; font-weight:normal; text-align: left;"><input type="checkbox" id="interviewHasTime" onchange="document.getElementById('interviewTimeContainer').style.display=this.checked?'flex':'none'"> 時間</label>
+                            <div id="interviewTimeContainer" class="time-box-flex" style="display:none;">
+                                <select id="interviewHour"></select>:<select id="interviewMin"></select>
+                            </div>
+                        </div>
 
                         <div class="flex-narrow">
                             <label>ステータス</label>
