@@ -318,6 +318,30 @@
             
             .history-list-popup { right: 8px; left: 8px; width: auto; top: 55px; }
         }
+        /* 画面幅からはみ出るバグを根こそぎ強制リセットする魔法のコード */
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important; /* 横方向のはみ出しを強制的に非表示にする */
+}
+
+#companyForm, .card, .section-add-company {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.date-time-card-box {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+/* 日付入力欄そのものの幅を強制固定 */
+.date-time-card-box input[type="date"],
+.date-time-card-box select {
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+}
     </style>
 </head>
 <body>
