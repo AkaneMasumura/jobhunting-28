@@ -286,33 +286,16 @@
             .m-detail-value { font-size: 0.85rem; color: #000; }
             .m-detail-value a { color: #000; text-decoration: underline; font-weight: bold; }
 
-            /* ✨スマホフォーム崩れ防止：横並びの力を完全にリセットして縦に並べる */
-            .form-row-single { 
-                display: flex !important;
-                flex-direction: column !important; 
-                align-items: stretch !important; 
-                gap: 10px; 
-                width: 100% !important;
-            }
-            
-            /* ✨PC版の横幅1.4倍・0.8倍の固定ルールをスマホでは完全に無効化する */
-            .form-row-single > .flex-wide,
-            .form-row-single > .flex-narrow,
-            .form-row-single > div {
-                flex: none !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                box-sizing: border-box !important;
-            }
-
+            /* スマホフォーム崩れ防止：縦並びに直す */
+            .form-row-single { flex-direction: column; align-items: stretch; gap: 10px; }
             label { font-size: 0.75rem; margin-bottom: 2px; }
             
             .date-time-card-box {
                 padding: 10px; border-radius: 12px; border: 2px solid var(--border-soft);
-                background-color: #fffafb; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important;
+                background-color: #fffafb; width: 100% !important; box-sizing: border-box;
             }
             input[type="text"], input[type="date"], input[type="url"], select, textarea {
-                padding: 8px 10px; font-size: 0.85rem; border-radius: 12px; width: 100% !important; max-width: 100% !important; box-sizing: border-box !important;
+                padding: 8px 10px; font-size: 0.85rem; border-radius: 12px; width: 100% !important; box-sizing: border-box;
             }
             textarea { height: 38px; }
             #companyForm button[type="submit"] { width: 100%; padding: 10px; font-size: 0.85rem; margin-top: 4px; }
