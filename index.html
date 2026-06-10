@@ -1278,20 +1278,26 @@
             wrapper.appendChild(txtSpan);
 
             // この項目がクリックされて編集状態なら、その場にセレクトボックスを出す
-            if (historyEditingKey === key) {
-                const editDiv = document.createElement('div');
-                editDiv.className = 'history-edit-box';
-                editDiv.setAttribute('onclick', 'event.stopPropagation()'); // クリックによる閉じ防止
-                editDiv.innerHTML = `
-                    <span style="font-size:0.7rem; color:var(--text-dark);">状態：</span>
-                    <select class="history-edit-select" onchange="changeHistoryStatusInline(event, ${compIdx}, '${taskType}')">
-                        <option value="済" ${currentVal === '済' ? 'selected' : ''}>済</option>
-                        <option value="未" ${currentVal === '未' ? 'selected' : ''}>未</option>
-                    </select>
-                `;
-                wrapper.appendChild(editDiv);
-            }
+if (historyEditingKey === key) {
+    const editDiv = document.createElement('div');
+    editDiv.className = 'history-edit-box';
+    editDiv.setAttribute('onclick', 'event.stopPropagation()'); // クリックによる閉じ防止
+    
+    // 横並び（flex）にして、文字が折り返さない（nowrap）ようにスタイルを直接指定
+    editDiv.style.display = 'flex';
+    editDiv.style.flexDirection = 'row';
+    editDiv.style.alignItems = 'center';
+    editDiv.style.whiteSpace = 'nowrap';
 
+    editDiv.innerHTML = `
+        <span style="font-size:0.7rem; color:var(--text-dark); margin-right: 4px;">状態：</span>
+        <select class="history-edit-select" onchange="changeHistoryStatusInline(event, ${compIdx}, '${taskType}')">
+            <option value="済" ${currentVal === '済' ? 'selected' : ''}>済</option>
+            <option value="未" ${currentVal === '未' ? 'selected' : ''}>未</option>
+        </select>
+    `;
+    wrapper.appendChild(editDiv);
+}
             container.appendChild(wrapper);
         }
 
