@@ -1070,9 +1070,13 @@
             if (!todoList) return;
             todoList.innerHTML = '';
             
+            // 基準を「今日の始まり（0時0分0秒）」にする
             const now = new Date();
+            now.setHours(0, 0, 0, 0); 
+            
+            // ✨ 11日(木)に「+ 6」して 17日(水)にする
             const sevenDaysLater = new Date();
-            sevenDaysLater.setDate(now.getDate() + 7);
+            sevenDaysLater.setDate(now.getDate() + 6); 
             sevenDaysLater.setHours(23, 59, 59, 999);
 
             let allTasks = [];
