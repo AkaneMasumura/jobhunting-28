@@ -771,7 +771,7 @@
                     let mypageHtml = '<span style="color:#ccc;">-</span>';
                     if (comp.mypageUrl || comp.mypageId) {
                         const linkPart = comp.mypageUrl ? `<a href="${comp.mypageUrl}" target="_blank">${escapeHtml(formatMypageUrlText(comp.mypageUrl))}</a>` : '<span style="color:#868e96;">-</span>';
-                        const idPart = comp.mypageId ? `<span class="mypage-id-label">ID: ${escapeHtml(comp.mypageId)}</span>` : '<span class="mypage-id-label">ID: -</span>';
+                        const idPart = comp.mypageId ? `<span class="mypage-id-label"> ${escapeHtml(comp.mypageId)}</span>` : '<span class="mypage-id-label">-</span>';
                         mypageHtml = `<div class="mypage-inline-info"><div>${linkPart}</div><div>${idPart}</div></div>`;
                     }
 
